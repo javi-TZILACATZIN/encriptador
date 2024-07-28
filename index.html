@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador de texto</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <header>
+        <img src="./assets/Logo.png" alt="logo alura">
+    </header>
+    <main>
+        <form class="form__section">
+        <textarea class="form__input" name="mensaje" id="" cols="30" rows="10" placeholder="Ingrese el texto aquí"></textarea>
+        <div class="btn__container">
+            <div class="alert__msj"><img src="./assets/alert.png" alt="alerta"><span>Solo letras minúsculas y sin acentos</span>
+            </div>
+        </div>
+        <div class="containerbot">    
+                <input class="bot" type="button" value="Encriptar">
+                <input class="bot bot--2" type="button" value="Desencriptar">
+        </div>
+    </form>
+    <aside class="resultado">
+        <img src="./assets/Muñeco.png" alt="tohru" class="resultado__tohru">
+        <img src="./assets/g4zmk2ddrak71.gif" alt="ilulu" class="ilulu hidden">
+        <img src="./assets/Lucoa.full.3692300.gif" alt="lucoadance" class="lucoa hidden">
+        <div class="resultado__container">
+            <h3 class="resultado__title">Ningún mensaje fue encontrado</h3>
+            <p class="resultado__text">Ingresa el texto que desees encriptar o desencriptar.</p>
+            <input class="botcop bot bot--2 hidden" type="button" value="Copiar">
+        </div>
+    </aside>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
