@@ -9,6 +9,9 @@ const botonencriptarxd = d.querySelector(".bot[value='Encriptar']");
 const botondesencriptarxd = d.querySelector(".bot[value='Desencriptar']");
 const botoncopiar = d.querySelector(".botcop");
 
+// Define la expresión regular para letras con acentos y caracteres especiales
+const regexNoPermitidos = /[^a-z\s]/g;
+
 const llaves = [
     ["e", "enter"],
     ["i", "imes"],
@@ -17,13 +20,13 @@ const llaves = [
     ["u", "ufat"]
 ];
 
-function encriptarmensaje(mensaje) {
+function encriptarmensaje(mensaje){
     let mensajeEncriptado = "";
-    for (let i = 0; i < mensaje.length; i++) {
+    for(let i = 0; i < mensaje.length; i++){
         let letra = mensaje[i];
         let encriptar = letra;
-        for (let j = 0; j < llaves.length; j++) {
-            if (letra === llaves[j][0]) {
+        for(let j = 0; j < llaves.length; j++){
+            if (letra === llaves[j][0]){
                 encriptar = llaves[j][1];
                 break;
             }
@@ -33,15 +36,16 @@ function encriptarmensaje(mensaje) {
     return mensajeEncriptado;
 }
 
-function desencriptarmensaje(mensaje) {
+function desencriptarmensaje(mensaje){
     let mensajeDesencriptado = mensaje;
-    for (let i = 0; i < llaves.length; i++) {
+    for(let i = 0; i < llaves.length; i++){
         let regex = new RegExp(llaves[i][1], "g");
         mensajeDesencriptado = mensajeDesencriptado.replace(regex, llaves[i][0]);
     }
     return mensajeDesencriptado;
 }
 
+// Muestra el gif de Ilulu y oculta el de Lucoa
 function showIluluGif() {
     ilulugif.classList.remove("hidden");
     lucoagif.style.display = "none";
@@ -52,8 +56,9 @@ function showLucoaGif() {
     ilulugif.classList.add("hidden");
 }
 
-function filterInput(text) {
-    return text.replace(/[^a-z]/g, '');
+// Limpia el texto eliminando caracteres no permitidos
+function limpiarTexto(mensaje) {
+    return mensaje.replace(regexNoPermitidos, '');
 }
 
 textarea.addEventListener("input", (e) => {
@@ -65,7 +70,7 @@ textarea.addEventListener("input", (e) => {
 
 botonencriptarxd.addEventListener("click", (e) => {
     let mensaje = textarea.value.toLowerCase();
-    mensaje = filterInput(mensaje); 
+    mensaje = limpiarTexto(mensaje);
     let mensajeEncriptado = encriptarmensaje(mensaje);
     oculttext.textContent = mensajeEncriptado;
     botoncopiar.classList.remove("hidden");
@@ -74,7 +79,7 @@ botonencriptarxd.addEventListener("click", (e) => {
 
 botondesencriptarxd.addEventListener("click", (e) => {
     let mensaje = textarea.value.toLowerCase();
-    mensaje = filterInput(mensaje); 
+    mensaje = limpiarTexto(mensaje);
     let mensajeDesencriptado = desencriptarmensaje(mensaje);
     oculttext.textContent = mensajeDesencriptado;
     botoncopiar.classList.remove("hidden");
