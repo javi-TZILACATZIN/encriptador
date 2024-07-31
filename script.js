@@ -91,5 +91,16 @@ botoncopiar.addEventListener("click", () => {
     navigator.clipboard.writeText(textoCopiado).then(() => {
         showLucoaGif();
         resultadodetitulo.textContent = "Texto copiado";
+        botoncopiar.classList.add("hidden");
+        textarea.value = "";
+
+        // Vuelve a mostrar el estado inicial después de 3 segundos
+        setTimeout(() => {
+            imgtohruu.style.display = "block";
+            lucoagif.style.display = "none";
+            resultadodetitulo.textContent = "Ningún mensaje fue encontrado";
+            oculttext.textContent = "Ingresa el texto que desees encriptar o desencriptar.";
+            botoncopiar.classList.add("hidden");
+        }, 3000);
     });
 });
