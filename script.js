@@ -20,13 +20,13 @@ const llaves = [
     ["u", "ufat"]
 ];
 
-function encriptarmensaje(mensaje){
+function encriptarmensaje(mensaje) {
     let mensajeEncriptado = "";
-    for(let i = 0; i < mensaje.length; i++){
+    for (let i = 0; i < mensaje.length; i++) {
         let letra = mensaje[i];
         let encriptar = letra;
-        for(let j = 0; j < llaves.length; j++){
-            if (letra === llaves[j][0]){
+        for (let j = 0; j < llaves.length; j++) {
+            if (letra === llaves[j][0]) {
                 encriptar = llaves[j][1];
                 break;
             }
@@ -36,9 +36,9 @@ function encriptarmensaje(mensaje){
     return mensajeEncriptado;
 }
 
-function desencriptarmensaje(mensaje){
+function desencriptarmensaje(mensaje) {
     let mensajeDesencriptado = mensaje;
-    for(let i = 0; i < llaves.length; i++){
+    for (let i = 0; i < llaves.length; i++) {
         let regex = new RegExp(llaves[i][1], "g");
         mensajeDesencriptado = mensajeDesencriptado.replace(regex, llaves[i][0]);
     }
@@ -61,15 +61,25 @@ function limpiarTexto(mensaje) {
     return mensaje.replace(regexNoPermitidos, '');
 }
 
+let resetTimeout; // Variable para almacenar el ID del temporizador
+
 textarea.addEventListener("input", (e) => {
     imgtohruu.style.display = "none";
     showIluluGif();
     resultadodetitulo.textContent = "Capturando mensaje";
     oculttext.textContent = "";
+    
+    // Si hay un temporizador en curso, cancélalo
+    if (resetTimeout) {
+        clearTimeout(resetTimeout);
+    }
 });
 
 botonencriptarxd.addEventListener("click", (e) => {
     let mensaje = textarea.value.toLowerCase();
+    if (mensaje.trim() === "") {
+        return; // No hacer nada si el textarea está vacío
+    }
     mensaje = limpiarTexto(mensaje);
     let mensajeEncriptado = encriptarmensaje(mensaje);
     oculttext.textContent = mensajeEncriptado;
@@ -79,6 +89,9 @@ botonencriptarxd.addEventListener("click", (e) => {
 
 botondesencriptarxd.addEventListener("click", (e) => {
     let mensaje = textarea.value.toLowerCase();
+    if (mensaje.trim() === "") {
+        return; // No hacer nada si el textarea está vacío
+    }
     mensaje = limpiarTexto(mensaje);
     let mensajeDesencriptado = desencriptarmensaje(mensaje);
     oculttext.textContent = mensajeDesencriptado;
@@ -95,7 +108,7 @@ botoncopiar.addEventListener("click", () => {
         textarea.value = "";
 
         // Vuelve a mostrar el estado inicial después de 3 segundos
-        setTimeout(() => {
+        resetTimeout = setTimeout(() => {
             imgtohruu.style.display = "block";
             lucoagif.style.display = "none";
             resultadodetitulo.textContent = "Ningún mensaje fue encontrado";
@@ -104,3 +117,4 @@ botoncopiar.addEventListener("click", () => {
         }, 3000);
     });
 });
+
